@@ -1,6 +1,3 @@
-header: |
-  SHOPWARE Docker
-
 paths:
   - dev-ops/common/actions
 
@@ -13,7 +10,7 @@ const:
   DB_PASSWORD: "app"
   DB_HOST: "mysql"
   DB_NAME: "shopware"
-  SW_HOST: "10.100.200.46"
+  SW_HOST: "10.100.111.46"
   PHP_VERSION: "7.0"
 
 dynamic:

@@ -9,19 +9,19 @@ services:
       - ~/.composer/cache:/var/www/composer-cache-dir
     networks:
       enterprise:
-        ipv4_address: 10.100.200.46
+        ipv4_address: 10.100.111.46
 
   app_mysql:
     networks:
       enterprise:
-        ipv4_address: 10.100.200.47
+        ipv4_address: 10.100.111.47
 
   app_volumes:
     image: tianon/true
     container_name: app_volumes
     volumes:
       - .:/project
-      - .:/var/www/b2b
+      - .:/var/www/shopware
       - ./dev-ops/docker/_volumes/app-mysqldata:/var/lib/mysql
 
 networks:
@@ -30,5 +30,5 @@ networks:
     ipam:
       driver: default
       config:
-      - subnet: 10.100.200.0/24
-        gateway: 10.100.200.1
+      - subnet: 10.100.111.0/24
+        gateway: 10.100.111.1
