@@ -1,6 +1,3 @@
-# Shopware 5 editor configuration normalization
-# http://editorconfig.org/
-
 # This is the top-most .editorconfig file; do not search in parent directories.
 root = true
 
@@ -13,13 +10,5 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = false
 
-[*.php]
-insert_final_newline = true
-
 [*.md]
 trim_trailing_whitespace = false
-
-
-[*.less]
-indent_style = space
-indent_size = 2
