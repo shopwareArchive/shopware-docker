@@ -1,0 +1,1 @@
+FROM elasticsearch:5
