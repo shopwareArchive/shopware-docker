@@ -17,9 +17,16 @@ services:
         ipv4_address: 10.100.111.47
 
   app_es:
+      volumes:
+        - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      environment:
+        ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       networks:
         sw_docker:
-          ipv4_address: 10.100.111.48
+            ipv4_address: 10.100.111.48
 
   app_sw_docker_volumes:
     image: tianon/true
