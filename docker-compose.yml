@@ -10,21 +10,58 @@ services:
     environment:
       TERM: xterm
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
+    ports:
+      - "8083:80"
+    volumes:
+      - ~/.composer/cache:/var/www/composer-cache-dir
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.46
 
   app_mysql:
     build: dev-ops/docker/containers/mysql
     volumes_from:
-      - app_volumes
+      - app_sw_docker_volumes
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
       MYSQL_PASSWORD: app
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.47
 
   app_es:
     build: dev-ops/docker/containers/elastic-search
+    volumes:
+      - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.48
 
-  app_volumes:
+  app_redis:
+    build: dev-ops/docker/containers/redis
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.49
+
+  app_sw_docker_volumes:
     image: tianon/true
+    container_name: app_sw_docker_volumes
     volumes:
       - .:/project
       - .:/var/www/shopware
+      - ./dev-ops/docker/_volumes/app-mysqldata:/var/lib/mysql
+
+networks:
+  sw_docker:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.100.111.0/24
+        gateway: 10.100.111.1

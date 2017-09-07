@@ -18,6 +18,7 @@ dynamic:
   APP_ID: docker-compose ps -q app_server
   MYSQL_ID: docker-compose ps -q app_mysql
   ES_ID: docker-compose ps -q app_es
+  REDIS_ID: docker-compose ps -q app_redis
 
 environments:
   docker:
