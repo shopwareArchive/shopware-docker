@@ -3,25 +3,25 @@ version: '2'
 services:
   app_server:
     build: dev-ops/docker/containers/php7
+    volumes:
+      - ~/.composer/cache:/var/www/composer-cache-dir
+      - .:/project
+      - .:/var/www/shopware
     links:
       - app_mysql:mysql
-    volumes_from:
-      - app_sw_docker_volumes
     environment:
       TERM: xterm
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
     ports:
       - "8083:80"
-    volumes:
-      - ~/.composer/cache:/var/www/composer-cache-dir
     networks:
       sw_docker:
         ipv4_address: 10.100.111.46
 
   app_mysql:
     build: dev-ops/docker/containers/mysql
-    volumes_from:
-      - app_sw_docker_volumes
+    volumes:
+      - ./dev-ops/docker/_volumes/app-mysqldata:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
@@ -34,6 +34,7 @@ services:
     build: dev-ops/docker/containers/elastic-search
     volumes:
       - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./dev-ops/docker/_volumes/app-esdata:/usr/share/elasticsearch/data/
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -45,17 +46,11 @@ services:
 
   app_redis:
     build: dev-ops/docker/containers/redis
+    volumes:
+      - ./dev-ops/docker/_volumes/app-redis:/data/
     networks:
       sw_docker:
         ipv4_address: 10.100.111.49
-
-  app_sw_docker_volumes:
-    image: tianon/true
-    container_name: app_sw_docker_volumes
-    volumes:
-      - .:/project
-      - .:/var/www/shopware
-      - ./dev-ops/docker/_volumes/app-mysqldata:/var/lib/mysql
 
 networks:
   sw_docker:
