@@ -14,7 +14,7 @@ class ConfigHelper
             'number_of_shards' => null,
             'client' => [
                 'hosts' => [
-                    '172.17.0.2:9200',
+                    '10.100.111.48:9200',
                 ],
             ],
         ];

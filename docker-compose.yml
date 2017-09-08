@@ -34,7 +34,7 @@ services:
     build: dev-ops/docker/containers/elastic-search
     volumes:
       - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./dev-ops/docker/_volumes/app-esdata:/usr/share/elasticsearch/data/
+      - ./dev-ops/docker/_volumes/app-esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -47,7 +47,7 @@ services:
   app_redis:
     build: dev-ops/docker/containers/redis
     volumes:
-      - ./dev-ops/docker/_volumes/app-redis:/data/
+      - ./dev-ops/docker/_volumes/app-redisdata:/data
     networks:
       sw_docker:
         ipv4_address: 10.100.111.49
