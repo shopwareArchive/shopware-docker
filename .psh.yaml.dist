@@ -1,17 +1,12 @@
 paths:
   - dev-ops/common/actions
 
-templates:
-  - source: "dev-ops/docker/templates/php-dockerfile.tpl"
-    destination: "dev-ops/docker/containers/php7/Dockerfile"
-
 const:
   DB_USER: "app"
   DB_PASSWORD: "app"
   DB_HOST: "mysql"
   DB_NAME: "shopware"
   SW_HOST: "10.100.111.46"
-  PHP_VERSION: "7.0"
 
 dynamic:
   USERKEY: echo "$(id -u):$(id -g)"
