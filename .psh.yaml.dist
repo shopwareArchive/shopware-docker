@@ -7,7 +7,7 @@ const:
   DB_HOST: "mysql"
   DB_NAME: "shopware"
   SW_HOST: "10.100.111.46"
-  SWVERSION: "latest"
+  SW-VERSION: "latest"
 
 dynamic:
   USERKEY: echo "$(id -u):$(id -g)"
