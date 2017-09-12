@@ -56,4 +56,4 @@ You can then access your storefront at:
 
 ## Troubleshooting 
 
-If the docker or redis container didn't start make sure that the directory dev-ops/docker/_volumes/app-esdata|app-redisdata has chmod 777. 
+If the elasticsearch or redis container didn't start make sure that the directory dev-ops/docker/_volumes/app-esdata|app-redisdata has chmod 777.
