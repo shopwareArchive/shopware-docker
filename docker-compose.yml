@@ -3,25 +3,61 @@ version: '2'
 services:
   app_server:
     build: dev-ops/docker/containers/php7
+    volumes:
+      - ~/.composer/cache:/var/www/composer-cache-dir
+      - .:/project
+      - .:/var/www/shopware
     links:
       - app_mysql:mysql
-    volumes_from:
-      - app_volumes
     environment:
       TERM: xterm
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
+    ports:
+      - "8083:80"
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.46
 
   app_mysql:
     build: dev-ops/docker/containers/mysql
-    volumes_from:
-      - app_volumes
+    volumes:
+      - ./dev-ops/docker/_volumes/app-mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
       MYSQL_PASSWORD: app
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.47
 
-  app_volumes:
-    image: tianon/true
+  app_es:
+    build: dev-ops/docker/containers/elastic-search
     volumes:
-      - .:/project
-      - .:/var/www/shopware
+      - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./dev-ops/docker/_volumes/app-es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      TERM: xterm
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.48
+
+  app_redis:
+    build: dev-ops/docker/containers/redis
+    volumes:
+      - ./dev-ops/docker/_volumes/app-redisdata:/data
+    networks:
+      sw_docker:
+        ipv4_address: 10.100.111.49
+
+networks:
+  sw_docker:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.100.111.0/24
+        gateway: 10.100.111.1

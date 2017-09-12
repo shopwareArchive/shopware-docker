@@ -41,6 +41,11 @@ Call the init script:
     
 This will download the latest release version of shopware and install it into /var/www/shopware/shopware
 
+If you want an older shopware version just add --sw-version to the init script:
+
+    $ ./psh.phar init --sw-version=5.2.26
+
+
 Configure your online store in a web browser with the credentials demo/demo:
 
 - Backend: [http://10.100.111.46/backend/](http://10.100.111.46/backend/)
@@ -48,3 +53,7 @@ Configure your online store in a web browser with the credentials demo/demo:
 You can then access your storefront at:
 
 - Front-end: [http://10.100.111.46/](http://10.100.111.46/)
+
+## Troubleshooting 
+
+If the docker or redis container didn't start make sure that the directory dev-ops/docker/_volumes/app-esdata|app-redisdata has chmod 777. 
