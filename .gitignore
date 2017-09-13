@@ -6,6 +6,5 @@
 /docker-compose.override.yml
 /dev-ops/docker/containers/mysql/createuser.sh
 /dev-ops/docker/containers/php7/createuser.sh
-/dev-ops/docker/containers/php7/Dockerfile
 /dev-ops/docker/_volumes
 !dev-ops/docker/_volumes/.gitkeep
