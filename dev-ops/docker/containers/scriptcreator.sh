@@ -9,7 +9,7 @@ GROUP=$(id -g)
 cat > $DIR/php7/createuser.sh <<DELIM
 #!/usr/bin/env bash
 
-groupadd -g ${GROUP} app-shell
+groupadd -o -g ${GROUP} app-shell
 useradd -s /bin/bash -m -u ${USERID} -g ${GROUP} app-shell
 mkdir -p /home/app-shell/.ssh
 chown -R app-shell:app-shell /home/app-shell
@@ -22,7 +22,7 @@ echo "Created "$DIR/php7/createuser.sh
 cat > $DIR/mysql/createuser.sh <<DELIM
 #!/usr/bin/env bash
 
-groupadd -g ${GROUP} app-mysql
+groupadd -o -g ${GROUP} app-mysql
 useradd -s /bin/bash -m -u ${USERID} -g ${GROUP} app-mysql
 mkdir -p /home/app-mysql/.ssh
 chown -R app-mysql:app-mysql /home/app-mysql
