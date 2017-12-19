@@ -45,6 +45,20 @@ If you want an older shopware version just add --sw-version to the init script:
 
     $ ./psh.phar init --sw-version=5.2.26
 
+#### For plugin development
+
+For plugin development there is a script `init-vcs` to initialize and install shopware through github.  
+
+    $ ./psh.phar init-vcs --sw-branch=5.2
+
+The plugin(s) you want to start development should be located in `./plugins` (Only new plugin system is supported). They can be installed and linked into the Shopware checkout by executing
+
+    $ ./psh.phar init-plugins
+    
+
+This can be used together with our [`plugin-dev-tools`](https://github.com/shopwareLabs/plugin-dev-tools) as the `local` environment.
+
+#### Access
 
 Configure your online store in a web browser with the credentials demo/demo:
 

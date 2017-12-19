@@ -1,5 +1,6 @@
 /.idea
 /.psh.yaml
+/.psh.yaml.override
 /shopware
 
 # dev-ops
@@ -8,3 +9,5 @@
 /dev-ops/docker/containers/php7/createuser.sh
 /dev-ops/docker/_volumes
 !dev-ops/docker/_volumes/.gitkeep
+/plugins/
+!/plugins/.gitkeep
