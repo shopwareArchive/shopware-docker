@@ -38,6 +38,16 @@ RUN docker-php-ext-install iconv mcrypt mbstring \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql
 
+RUN mkdir /tmp/ioncube && \
+    mkdir -p /usr/local/ioncube && \
+    cd /tmp/ioncube && \
+    curl -SL http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz -o /tmp/ioncube/ioncube_loaders_lin_x86-64.tar.gz && \
+    tar xvf /tmp/ioncube/ioncube_loaders_lin_x86-64.tar.gz && \
+    cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
+    cp /tmp/ioncube/ioncube/ioncube_loader_lin_7.1.so /usr/local/ioncube/ioncube_loader_lin_7.1.so && \
+    echo zend_extension=/usr/local/ioncube/ioncube_loader_lin_7.1.so > /usr/local/etc/php/conf.d/00-ioncube.ini && \
+    rm -rf /tmp/ioncube/
+
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
