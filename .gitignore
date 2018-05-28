@@ -11,3 +11,5 @@
 !dev-ops/docker/_volumes/.gitkeep
 /plugins/
 !/plugins/.gitkeep
+/plugins_old/
+!/plugins_old/.gitkeep
