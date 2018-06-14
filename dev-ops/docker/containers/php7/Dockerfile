@@ -12,6 +12,7 @@ RUN apt-get update -qq && apt-get install -y -qq \
         git \
         zip \
         unzip \
+        openjdk-7-jdk \
         inotify-tools
 
 RUN apt-get update -qq && apt-get install -y -qq \
@@ -24,7 +25,9 @@ RUN apt-get update -qq && apt-get install -y -qq \
         sudo \
         vim \
         graphviz \
-        netcat-openbsd
+        netcat-openbsd \
+        nodejs npm nodejs-legacy \
+        ant
 
 RUN docker-php-ext-install iconv mcrypt mbstring \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -40,6 +43,8 @@ RUN pecl install xdebug \
 
 RUN pecl install redis \
     && docker-php-ext-enable redis
+
+RUN npm install -g grunt-cli bower grunt jasmine
 
 ADD server-apache2-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 ADD server-apache2-run-as.conf /etc/apache2/conf-available
