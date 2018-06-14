@@ -1,5 +1,9 @@
 FROM php:7.1-apache
 
+RUN apt-get update -qq && apt-get install -y -qq apt-utils && mkdir -p /usr/share/man/man1 \
+    && apt-get update -qq && apt-get install -y -qq openjdk-8-jre-headless \
+    && apt-get update -qq && apt-get install -y -qq  openjdk-8-jdk && dpkg --configure -a
+
 RUN apt-get update -qq && apt-get install -y -qq \
         libicu-dev \
         libfreetype6-dev \
@@ -12,22 +16,21 @@ RUN apt-get update -qq && apt-get install -y -qq \
         git \
         zip \
         unzip \
-        openjdk-7-jdk \
-        inotify-tools
-
-RUN apt-get update -qq && apt-get install -y -qq \
+        inotify-tools \
         build-essential \
         libxml2-dev libxslt1-dev zlib1g-dev \
         git \
         mysql-client \
         sshpass \
+        gnupg \
         nano \
         sudo \
         vim \
         graphviz \
         netcat-openbsd \
-        nodejs npm nodejs-legacy \
         ant
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs build-essential
 
 RUN docker-php-ext-install iconv mcrypt mbstring opcache \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
