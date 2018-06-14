@@ -7,7 +7,7 @@ const:
   DB_HOST: "mysql"
   DB_NAME: "shopware"
   SW_HOST: "10.100.111.46"
-  SW-BRANCH: "5.3"
+  SW-BRANCH: "5.4"
   SW-VERSION: "latest"
 
 dynamic:
