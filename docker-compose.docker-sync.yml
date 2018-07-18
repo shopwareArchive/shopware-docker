@@ -5,15 +5,15 @@ services:
     build: dev-ops/docker/containers/php7
     volumes:
       - ~/.composer/cache:/var/www/composer-cache-dir
-      - .:/project
-      - .:/var/www/shopware
+      - app_server-sync:/project:nocopy
+      - app_server-sync:/var/www/shopware:nocopy
     links:
       - app_mysql:mysql
     environment:
       TERM: xterm
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
     ports:
-      - "8083:80"
+      - "80:80"
     networks:
       sw_docker:
         ipv4_address: 10.100.111.46
@@ -61,3 +61,7 @@ networks:
       config:
       - subnet: 10.100.111.0/24
         gateway: 10.100.111.1
+
+volumes:
+  app_server-sync:
+    external: true
