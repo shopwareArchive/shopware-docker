@@ -1,35 +1,38 @@
 FROM php:7.1-apache
 
+RUN apt-get update -qq && apt-get install -y -qq apt-utils && mkdir -p /usr/share/man/man1 \
+    && apt-get update -qq && apt-get install -y -qq openjdk-8-jre-headless \
+    && apt-get update -qq && apt-get install -y -qq  openjdk-8-jdk && dpkg --configure -a
+
 RUN apt-get update -qq && apt-get install -y -qq \
         libicu-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
         libcurl4-openssl-dev \
         software-properties-common  \
         libcurl3 curl \
         git \
         zip \
         unzip \
-        openjdk-7-jdk \
-        inotify-tools
-
-RUN apt-get update -qq && apt-get install -y -qq \
+        inotify-tools \
         build-essential \
         libxml2-dev libxslt1-dev zlib1g-dev \
         git \
         mysql-client \
         sshpass \
+        gnupg \
         nano \
         sudo \
         vim \
         graphviz \
         netcat-openbsd \
-        nodejs npm nodejs-legacy \
         ant
 
-RUN docker-php-ext-install iconv mcrypt mbstring \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs build-essential
+
+RUN docker-php-ext-install iconv mcrypt mbstring opcache \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && docker-php-ext-install zip \
@@ -37,6 +40,19 @@ RUN docker-php-ext-install iconv mcrypt mbstring \
     && docker-php-ext-install intl \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql
+
+RUN pecl install apcu
+RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
+
+RUN mkdir /tmp/ioncube && \
+    mkdir -p /usr/local/ioncube && \
+    cd /tmp/ioncube && \
+    curl -SL http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz -o /tmp/ioncube/ioncube_loaders_lin_x86-64.tar.gz && \
+    tar xvf /tmp/ioncube/ioncube_loaders_lin_x86-64.tar.gz && \
+    cd `php -i | grep extension_dir | cut -d' ' -f 5` && \
+    cp /tmp/ioncube/ioncube/ioncube_loader_lin_7.1.so /usr/local/ioncube/ioncube_loader_lin_7.1.so && \
+    echo zend_extension=/usr/local/ioncube/ioncube_loader_lin_7.1.so > /usr/local/etc/php/conf.d/00-ioncube.ini && \
+    rm -rf /tmp/ioncube/
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug

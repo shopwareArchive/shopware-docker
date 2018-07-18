@@ -12,3 +12,5 @@
 /plugins/
 !/plugins/.gitkeep
 /.docker-sync/
+/plugins_old/
+!/plugins_old/.gitkeep
