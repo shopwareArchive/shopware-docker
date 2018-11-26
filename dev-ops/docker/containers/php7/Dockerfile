@@ -41,6 +41,8 @@ RUN docker-php-ext-install iconv mcrypt mbstring opcache \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql
 
+RUN pear config-set http_proxy $http_proxy
+
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
