@@ -1,7 +1,5 @@
 FROM php:7.1-apache
 
-ENV DOCKER_HTTP_PROXY $HTTP_PROXY
-
 RUN apt-get update -qq && apt-get install -y -qq apt-utils && mkdir -p /usr/share/man/man1 \
     && apt-get update -qq && apt-get install -y -qq openjdk-8-jre-headless \
     && apt-get update -qq && apt-get install -y -qq  openjdk-8-jdk && dpkg --configure -a
@@ -43,7 +41,7 @@ RUN docker-php-ext-install iconv mcrypt mbstring opcache \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql
 
-RUN pear config-set http_proxy $DOCKER_HTTP_PROXY
+RUN pear config-set http_proxy __DOCKER_HTTP_PROXY__
 
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini

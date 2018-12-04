@@ -16,6 +16,7 @@ dynamic:
   MYSQL_ID: docker-compose ps -q app_mysql
   ES_ID: docker-compose ps -q app_es
   REDIS_ID: docker-compose ps -q app_redis
+  DOCKER_HTTP_PROXY: echo $HTTP_PROXY
 
 environments:
   docker:
