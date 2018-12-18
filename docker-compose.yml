@@ -14,9 +14,6 @@ services:
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
     ports:
       - "8083:80"
-    networks:
-      sw_docker:
-        ipv4_address: 10.100.111.46
 
   app_mysql:
     build: dev-ops/docker/containers/mysql
@@ -26,9 +23,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
       MYSQL_PASSWORD: app
-    networks:
-      sw_docker:
-        ipv4_address: 10.100.111.47
 
   app_es:
     build: dev-ops/docker/containers/elastic-search
@@ -41,23 +35,8 @@ services:
     environment:
       TERM: xterm
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      sw_docker:
-        ipv4_address: 10.100.111.48
 
   app_redis:
     build: dev-ops/docker/containers/redis
     volumes:
       - ./dev-ops/docker/_volumes/app-redisdata:/data:Z
-    networks:
-      sw_docker:
-        ipv4_address: 10.100.111.49
-
-networks:
-  sw_docker:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 10.100.111.0/24
-        gateway: 10.100.111.1
