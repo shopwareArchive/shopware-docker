@@ -6,7 +6,7 @@ const:
   DB_PASSWORD: "app"
   DB_HOST: "mysql"
   DB_NAME: "shopware"
-  SW_HOST: "app_server"
+  SW_HOST: "localhost:8083"
   SW-BRANCH: "5.4"
   SW-VERSION: "latest"
 
