@@ -1,0 +1,12 @@
+language: php
+php:
+    - '7.0'
+    - '7.1'
+    - '7.2'
+env:
+    - DOCKER_COMPOSE_VERSION=1.23.2
+services:
+    - docker
+
+script:
+    - ./psh.phar docker:start
