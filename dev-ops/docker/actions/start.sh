@@ -7,4 +7,4 @@ docker-compose build && docker-compose up -d
 wait
 
 echo "All containers started successfully"
-echo "Web server IP: http://10.100.111.46"
+echo "Web server IP: http://localhost:8083"
