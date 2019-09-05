@@ -70,6 +70,18 @@ You can then access your storefront at:
 
 - Front-end: [http://localhost:8083/](http://localhost:8083/)
 
+#### docker-sync
+
+Install [docker-sync](http://docker-sync.io/) on your macOS host machine: `gem install docker-sync`.
+
+Copy (replace) `docker-compose.docker-sync.yml` to `docker-compose.yml`.
+
+Run `docker-sync start` before `./psh.phar docker:start`.
+
+You might be asked to install some unison tools.
+
+Enjoy faster development :-)
+
 ## Troubleshooting 
 
 If the elasticsearch or redis container didn't start make sure that the directory dev-ops/docker/_volumes/app-esdata|app-redisdata has chmod 777.
