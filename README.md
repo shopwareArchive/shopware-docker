@@ -35,7 +35,11 @@ To SSH into the created Container:
 
 SSH first into your VM:
 
+    For Windows:
     $ ./psh.phar docker:ssh
+    
+    For MacOs:
+    $ docker exec -it shopware-docker_app_server_1
     
 Call the init script:
 
